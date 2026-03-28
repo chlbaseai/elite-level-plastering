@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Level Plastering — Surrey & South London</title>
+    <meta name="description" content="Professional internal and external plastering services across Surrey and South London. Expert craftsmanship, attention to detail, and quality finishes on every project.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           ELITE LEVEL PLASTERING — STYLES
+           ============================================ */
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #141413;
+            --dark: #1a1a19;
+            --dark-mid: #222221;
+            --dark-card: #1e1e1d;
+            --copper: #c47d3b;
+            --copper-light: #d4944f;
+            --copper-dim: rgba(196, 125, 59, 0.15);
+            --cream: #f0ede8;
+            --cream-dim: rgba(240, 237, 232, 0.65);
+            --cream-faint: rgba(240, 237, 232, 0.35);
+            --cream-ghost: rgba(240, 237, 232, 0.08);
+            --section-pad: clamp(5rem, 12vw, 10rem);
+            --container: 1400px;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--black);
+            color: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+        }
+
+        /* ---- SECTION DIVIDERS ---- */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cream-ghost), transparent);
+        }
+
+        /* ---- LABELS ---- */
+        .label {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        /* ---- SCROLL REVEAL ---- */
+        .sr {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .sr.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 0;
+            transition: all 0.5s var(--ease);
+            mix-blend-mode: difference;
+        }
+        .nav.scrolled {
+            mix-blend-mode: normal;
+            background: rgba(20, 20, 19, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--cream-ghost);
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--cream);
+        }
+        .nav-logo span {
+            color: var(--copper);
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-phone {
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--cream-dim);
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+        .nav-phone:hover {
+            color: var(--copper);
+        }
+        .nav-hamburger {
+            width: 28px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            z-index: 110;
+        }
+        .nav-hamburger span {
+            display: block;
+            width: 100%;
+            height: 1.5px;
+            background: var(--cream);
+            transition: all 0.4s var(--ease);
+            transform-origin: center;
+        }
+        .nav-hamburger.active span:nth-child(1) {
+            transform: translateY(9.25px) rotate(45deg);
+        }
+        .nav-hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-hamburger.active span:nth-child(3) {
+            transform: translateY(-9.25px) rotate(-45deg);
+        }
+
+        /* ---- FULL-SCREEN MENU ---- */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s var(--ease);
+        }
+        .menu-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .menu-content {
+            width: 100%;
+            padding: 0 clamp(1.25rem, 4vw, 3rem);
+            max-width: var(--container);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .menu-links {
+            list-style: none;
+        }
+        .menu-links li {
+            overflow: hidden;
+        }
+        .menu-links a {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            padding: 0.75rem 0;
+            font-size: clamp(1.75rem, 4vw, 3.5rem);
+            font-weight: 300;
+            color: var(--cream-faint);
+            transition: all 0.4s var(--ease);
+            transform: translateY(100%);
+        }
+        .menu-overlay.open .menu-links a {
+            transform: translateY(0);
+        }
+        .menu-links li:nth-child(1) a { transition-delay: 0.1s; }
+        .menu-links li:nth-child(2) a { transition-delay: 0.15s; }
+        .menu-links li:nth-child(3) a { transition-delay: 0.2s; }
+        .menu-links li:nth-child(4) a { transition-delay: 0.25s; }
+        .menu-links li:nth-child(5) a { transition-delay: 0.3s; }
+        .menu-links a:hover {
+            color: var(--cream);
+            padding-left: 0.5rem;
+        }
+        .menu-links .menu-num {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--copper);
+            letter-spacing: 0.1em;
+        }
+        .menu-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .menu-right-img {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .menu-right-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .menu-contact-block {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s var(--ease) 0.35s;
+        }
+        .menu-overlay.open .menu-contact-block {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .menu-contact-block p {
+            font-size: 0.875rem;
+            color: var(--cream-dim);
+            line-height: 1.8;
+        }
+        .menu-contact-block a {
+            color: var(--copper);
+            transition: color 0.3s;
+        }
+        .menu-contact-block a:hover {
+            color: var(--copper-light);
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            min-height: 100dvh;
+            display: flex;
+            align-items: flex-end;
+            position: relative;
+            overflow: hidden;
+            padding-bottom: clamp(3rem, 8vw, 6rem);
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: heroZoom 14s ease-out forwards;
+        }
+        @keyframes heroZoom {
+            from { transform: scale(1.08); }
+            to { transform: scale(1); }
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                var(--black) 0%,
+                rgba(20, 20, 19, 0.85) 30%,
+                rgba(20, 20, 19, 0.5) 60%,
+                rgba(20, 20, 19, 0.3) 100%
+            );
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: end;
+        }
+        .hero-headline {
+            font-size: clamp(2.75rem, 7vw, 6.5rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+        }
+        .hero-headline em {
+            font-style: italic;
+            color: var(--copper);
+            font-weight: 300;
+        }
+        .hero-desc {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+            max-width: 48ch;
+            margin-bottom: 2rem;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--copper);
+            color: var(--black);
+            padding: 1.125rem 2.5rem;
+            border-radius: 100px;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.5s var(--ease);
+            border: none;
+            cursor: pointer;
+        }
+        .hero-cta:hover {
+            background: var(--copper-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 125, 59, 0.3);
+        }
+        .hero-cta:active {
+            transform: scale(0.97);
+        }
+        .hero-cta svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.3s var(--ease);
+        }
+        .hero-cta:hover svg {
+            transform: translateX(3px);
+        }
+        .hero-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-left: 2rem;
+            border-left: 1px solid var(--cream-ghost);
+        }
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .hero-stat-value {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--copper);
+            letter-spacing: -0.02em;
+        }
+        .hero-stat-label {
+            font-size: 0.6875rem;
+            font-weight: 400;
+            color: var(--cream-faint);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: clamp(1.5rem, 4vw, 3rem);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .hero-scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--copper), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; height: 40px; }
+            50% { opacity: 1; height: 50px; }
+        }
+        .hero-scroll-text {
+            font-size: 0.5625rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+
+        /* ============================================
+           MARQUEE
+           ============================================ */
+        .marquee-section {
+            padding: 1.25rem 0;
+            border-top: 1px solid var(--cream-ghost);
+            border-bottom: 1px solid var(--cream-ghost);
+            overflow: hidden;
+        }
+        .marquee-track {
+            display: flex;
+            animation: marqueeScroll 30s linear infinite;
+            width: max-content;
+        }
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 0 2rem;
+            white-space: nowrap;
+            font-size: 0.8125rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+        .marquee-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--copper);
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           ABOUT
+           ============================================ */
+        .about {
+            padding: var(--section-pad) 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 6vw, 5rem);
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .about-text h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .about-text p {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            max-width: 55ch;
+        }
+        .about-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-top: 1rem;
+            transition: gap 0.4s var(--ease);
+        }
+        .about-link:hover {
+            gap: 1.25rem;
+        }
+        .about-link svg {
+            width: 20px;
+            height: 1px;
+            overflow: visible;
+        }
+        .about-images {
+            position: relative;
+        }
+        .about-img-main {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            width: 80%;
+            margin-left: auto;
+        }
+        .about-img-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease);
+        }
+        .about-img-main:hover img {
+            transform: scale(1.04);
+        }
+        .about-img-accent {
+            position: absolute;
+            bottom: -2rem;
+            left: 0;
+            width: 55%;
+            aspect-ratio: 4/3;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 4px solid var(--black);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+        .about-img-accent img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .about-badge {
+            position: absolute;
+            top: -1.5rem;
+            left: 15%;
+            width: 100px;
+            height: 100px;
+            animation: badgeSpin 20s linear infinite;
+        }
+        @keyframes badgeSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .about-badge svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ============================================
+           PROCESS / SERVICES
+           ============================================ */
+        .process {
+            padding: var(--section-pad) 0;
+        }
+        .process-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: clamp(3rem, 8vw, 5rem);
+        }
+        .process-header h2 {
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .process-header h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .process-header p {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+            max-width: 50ch;
+            align-self: end;
+        }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .process-step {
+            padding: clamp(2rem, 4vw, 3rem);
+            border-left: 1px solid var(--cream-ghost);
+            position: relative;
+            transition: background 0.5s var(--ease);
+        }
+        .process-step:first-child {
+            border-left: none;
+        }
+        .process-step:hover {
+            background: var(--cream-ghost);
+        }
+        .process-step-num {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--copper-dim);
+            line-height: 1;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+        .process-step h3 {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+        .process-step p {
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+        }
+        .process-step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--copper-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .process-step-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--copper);
+        }
+
+        /* ============================================
+           SERVICES LIST
+           ============================================ */
+        .services {
+            padding: var(--section-pad) 0;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: clamp(2rem, 6vw, 5rem);
+            align-items: start;
+        }
+        .services-list {
+            list-style: none;
+        }
+        .services-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--cream-ghost);
+            cursor: default;
+            transition: all 0.4s var(--ease);
+        }
+        .services-list li:first-child {
+            border-top: 1px solid var(--cream-ghost);
+        }
+        .services-list li:hover {
+            padding-left: 1rem;
+            border-bottom-color: var(--copper);
+        }
+        .service-name {
+            font-size: clamp(1rem, 2vw, 1.375rem);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        .service-arrow {
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.4s var(--ease);
+            color: var(--copper);
+        }
+        .services-list li:hover .service-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .services-right {
+            position: sticky;
+            top: 120px;
+        }
+        .services-right h2 {
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .services-right h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .services-right p {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* ============================================
+           GALLERY
+           ============================================ */
+        .gallery {
+            padding: var(--section-pad) 0;
+        }
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: clamp(2rem, 5vw, 3.5rem);
+        }
+        .gallery-header h2 {
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .gallery-header h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 1.25rem;
+            min-height: 500px;
+        }
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease);
+        }
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+        .gallery-item:first-child {
+            grid-row: 1 / -1;
+        }
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(20,20,19,0.8), transparent);
+            opacity: 0;
+            transform: translateY(8px);
+            transition: all 0.5s var(--ease);
+        }
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-item-overlay span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--copper);
+        }
+
+        /* ============================================
+           WHY CHOOSE US
+           ============================================ */
+        .why {
+            padding: var(--section-pad) 0;
+        }
+        .why-grid {
+            display: grid;
+            grid-template-columns: 0.7fr 1.3fr;
+            gap: clamp(2rem, 6vw, 5rem);
+            align-items: center;
+        }
+        .why-left h2 {
+            font-size: clamp(1.75rem, 4vw, 3.25rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1.25rem;
+        }
+        .why-left h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .why-left p {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+        }
+        .why-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .why-feature {
+            padding: clamp(1.5rem, 3vw, 2rem);
+            background: var(--dark-card);
+            border: 1px solid var(--cream-ghost);
+            border-radius: var(--radius-sm);
+            transition: all 0.4s var(--ease);
+        }
+        .why-feature:hover {
+            border-color: var(--copper);
+            transform: translateY(-3px);
+        }
+        .why-feature-icon {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 1rem;
+            color: var(--copper);
+        }
+        .why-feature h4 {
+            font-size: 0.9375rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .why-feature p {
+            font-size: 0.8125rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           CONTACT / CTA
+           ============================================ */
+        .contact {
+            padding: var(--section-pad) 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+        .contact-card {
+            background: var(--dark-card);
+            border: 1px solid var(--cream-ghost);
+            border-radius: var(--radius);
+            padding: clamp(2rem, 4vw, 3rem);
+        }
+        .contact-card h3 {
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--copper);
+            margin-bottom: 2rem;
+        }
+        .contact-info-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--cream-ghost);
+        }
+        .contact-info-row:last-child {
+            border-bottom: none;
+        }
+        .contact-info-row svg {
+            width: 18px;
+            height: 18px;
+            color: var(--copper);
+            flex-shrink: 0;
+        }
+        .contact-info-row .info-content {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-info-row .info-label {
+            font-size: 0.6875rem;
+            color: var(--cream-faint);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.15rem;
+        }
+        .contact-info-row .info-value {
+            font-size: 0.9375rem;
+            font-weight: 400;
+        }
+        .contact-info-row .info-value a {
+            transition: color 0.3s;
+        }
+        .contact-info-row .info-value a:hover {
+            color: var(--copper);
+        }
+
+        /* ---- FINAL CTA ---- */
+        .final-cta {
+            padding: var(--section-pad) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .final-cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(196, 125, 59, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        .final-cta h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
+        }
+        .final-cta h2 em {
+            font-style: italic;
+            color: var(--copper);
+        }
+        .final-cta p {
+            font-size: 0.9375rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.8;
+            max-width: 50ch;
+            margin: 0 auto 2.5rem;
+        }
+        .final-cta .hero-cta {
+            display: inline-flex;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--cream-ghost);
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-logo {
+            font-size: 0.6875rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cream-faint);
+        }
+        .footer-logo span {
+            color: var(--copper);
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--cream-faint);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--copper);
+        }
+        .footer-copy {
+            font-size: 0.6875rem;
+            color: var(--cream-faint);
+        }
+
+        /* ============================================
+           FLOATING BOOK BUTTON
+           ============================================ */
+        .floating-cta {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 90;
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            transition: all 0.5s var(--ease);
+        }
+        .floating-cta.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        .floating-cta a {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            background: var(--copper);
+            color: var(--black);
+            padding: 0.875rem 1.75rem;
+            border-radius: 100px;
+            font-size: 0.625rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            box-shadow: 0 8px 30px rgba(196, 125, 59, 0.35);
+            transition: all 0.4s var(--ease);
+        }
+        .floating-cta a:hover {
+            background: var(--copper-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(196, 125, 59, 0.45);
+        }
+        .floating-cta a:active {
+            transform: scale(0.97);
+        }
+        .floating-cta svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* ============================================
+           MOBILE RESPONSIVE
+           ============================================ */
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                display: none;
+            }
+            .nav-phone {
+                display: none;
+            }
+            .menu-content {
+                grid-template-columns: 1fr;
+            }
+            .menu-right {
+                display: none;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-images {
+                order: -1;
+            }
+            .about-img-main {
+                width: 100%;
+            }
+            .about-img-accent {
+                width: 45%;
+                bottom: -1rem;
+            }
+            .about-badge {
+                width: 70px;
+                height: 70px;
+                top: -1rem;
+                left: 5%;
+            }
+            .process-header {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            .process-step {
+                border-left: none;
+                border-bottom: 1px solid var(--cream-ghost);
+            }
+            .process-step:last-child {
+                border-bottom: none;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .services-right {
+                position: static;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                min-height: auto;
+            }
+            .gallery-item:first-child {
+                grid-row: auto;
+                aspect-ratio: 16/10;
+            }
+            .gallery-item:not(:first-child) {
+                aspect-ratio: 16/10;
+            }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+            .why-features {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.25rem;
+                text-align: center;
+            }
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .floating-cta {
+                bottom: 1.25rem;
+                right: 1.25rem;
+            }
+            .floating-cta a {
+                padding: 0.75rem 1.5rem;
+            }
+            .gallery-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="#" class="nav-logo">Elite Level <span>Plastering</span></a>
+                <div class="nav-right">
+                    <a href="tel:07830391647" class="nav-phone">07830 391 647</a>
+                    <div class="nav-hamburger" id="menuToggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========== FULL-SCREEN MENU ========== -->
+    <div class="menu-overlay" id="menuOverlay">
+        <div class="menu-content">
+            <ul class="menu-links">
+                <li><a href="#about"><span class="menu-num">01</span> About</a></li>
+                <li><a href="#process"><span class="menu-num">02</span> Our Process</a></li>
+                <li><a href="#services"><span class="menu-num">03</span> Services</a></li>
+                <li><a href="#gallery"><span class="menu-num">04</span> Our Work</a></li>
+                <li><a href="#contact"><span class="menu-num">05</span> Contact</a></li>
+            </ul>
+            <div class="menu-right">
+                <div class="menu-right-img">
+                    <img src="../assets/hero/20251216_141245.jpg" alt="Completed external rendering on residential property in Surrey" loading="lazy">
+                </div>
+                <div class="menu-contact-block">
+                    <p>
+                        Surrey & South London<br>
+                        <a href="tel:07830391647">07830 391 647</a><br>
+                        <a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener">WhatsApp Us</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="../assets/hero/20251216_141245.jpg" alt="Beautifully rendered residential property with clean finish, completed by Elite Level Plastering in Surrey">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-grid">
+                <div>
+                    <span class="label sr">Plastering Specialists</span>
+                    <h1 class="hero-headline sr" style="transition-delay: 0.1s">Craftsmanship<br>that <em>speaks</em><br>for itself</h1>
+                    <p class="hero-desc sr" style="transition-delay: 0.2s">From single walls to full renovations, we bring expert craftsmanship, attention to detail, and professionalism to every project across Surrey and South London.</p>
+                    <a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener" class="hero-cta sr" style="transition-delay: 0.3s">
+                        Get a Free Quote
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+                    </a>
+                </div>
+                <div class="hero-stats sr" style="transition-delay: 0.4s">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">10+</span>
+                        <span class="hero-stat-label">Years Experience</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">500+</span>
+                        <span class="hero-stat-label">Projects Completed</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">Surrey</span>
+                        <span class="hero-stat-label">& South London</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <div class="hero-scroll-line"></div>
+            <span class="hero-scroll-text">Scroll</span>
+        </div>
+    </section>
+
+    <!-- ========== MARQUEE ========== -->
+    <div class="marquee-section" aria-hidden="true">
+        <div class="marquee-track">
+            <span class="marquee-item">Internal Plastering <span class="marquee-dot"></span></span>
+            <span class="marquee-item">External Rendering <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Skimming <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Bonding <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Plasterboarding <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Sand & Cement <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Hardwall <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Corner Beading <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Residential <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Commercial <span class="marquee-dot"></span></span>
+            <!-- Duplicate for seamless loop -->
+            <span class="marquee-item">Internal Plastering <span class="marquee-dot"></span></span>
+            <span class="marquee-item">External Rendering <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Skimming <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Bonding <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Plasterboarding <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Sand & Cement <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Hardwall <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Corner Beading <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Residential <span class="marquee-dot"></span></span>
+            <span class="marquee-item">Commercial <span class="marquee-dot"></span></span>
+        </div>
+    </div>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text sr">
+                    <span class="label">About Us</span>
+                    <h2>Built on <em>precision,</em><br>proven by results</h2>
+                    <p>Elite Level Plastering delivers professional internal and external plastering services across Surrey and South London. Every wall we finish is a reflection of our standards &mdash; smooth, clean, and built to last.</p>
+                    <p>We use adhesive-fixed corner beads rather than staples, giving a stronger bond and a cleaner finish that won&rsquo;t crack or shift over time. It costs more in materials and time, but the result speaks for itself.</p>
+                    <a href="#contact" class="about-link">
+                        Get in touch
+                        <svg viewBox="0 0 20 1"><line x1="0" y1="0.5" x2="20" y2="0.5" stroke="currentColor" stroke-width="1"/></svg>
+                    </a>
+                </div>
+                <div class="about-images sr" style="transition-delay: 0.15s">
+                    <div class="about-img-main">
+                        <img src="../assets/hero/IMG_20240910_103949.jpg" alt="Close-up of external render finish showing quality guttering and clean plaster lines">
+                    </div>
+                    <div class="about-img-accent">
+                        <img src="../assets/hero/20251216_140906.jpg" alt="Completed outbuilding with professional external render and dark cladding">
+                    </div>
+                    <div class="about-badge">
+                        <svg viewBox="0 0 100 100">
+                            <defs>
+                                <path id="circlePath" d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/>
+                            </defs>
+                            <text font-size="8.5" fill="#c47d3b" font-family="Outfit, sans-serif" font-weight="500" letter-spacing="3">
+                                <textPath href="#circlePath">QUALITY FINISH * ELITE LEVEL * QUALITY FINISH * ELITE LEVEL * </textPath>
+                            </text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ========== PROCESS ========== -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="process-header">
+                <div class="sr">
+                    <span class="label">Our Process</span>
+                    <h2>Three stages to a<br><em>flawless</em> finish</h2>
+                </div>
+                <p class="sr" style="transition-delay: 0.1s">Every job follows the same proven process. Preparation is the foundation of quality &mdash; we never cut corners to save time.</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step sr">
+                    <div class="process-step-num">01</div>
+                    <div class="process-step-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085"/></svg>
+                    </div>
+                    <h3>Preparation</h3>
+                    <p>Corner beads applied with drywall adhesive &mdash; never stapled. This method prevents uneven finishes and ensures the edge stays solid for years. Preparation is the key to a quality finish.</p>
+                </div>
+                <div class="process-step sr" style="transition-delay: 0.1s">
+                    <div class="process-step-num">02</div>
+                    <div class="process-step-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3"/></svg>
+                    </div>
+                    <h3>Undercoat</h3>
+                    <p>Fills holes and levels uneven surfaces using bonding, hardwall, plasterboard, or sand and cement as needed. This creates the solid foundation for a smooth top coat.</p>
+                </div>
+                <div class="process-step sr" style="transition-delay: 0.2s">
+                    <div class="process-step-num">03</div>
+                    <div class="process-step-icon">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
+                    </div>
+                    <h3>Top Coat &amp; Skim</h3>
+                    <p>Two-coat application as standard &mdash; delivering a much cleaner finish. The result is a smooth surface ready for any level of painting and decorating work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ========== SERVICES ========== -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-grid">
+                <ul class="services-list sr">
+                    <li>
+                        <span class="service-name">Internal Plastering</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">External Rendering</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Skimming &amp; Re-skimming</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Plasterboarding</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Bonding &amp; Hardwall</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Sand &amp; Cement Work</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Corner Bead Installation</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                    <li>
+                        <span class="service-name">Residential &amp; Commercial</span>
+                        <svg class="service-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h10M11 5l5 5-5 5"/></svg>
+                    </li>
+                </ul>
+                <div class="services-right sr" style="transition-delay: 0.15s">
+                    <span class="label">What We Do</span>
+                    <h2>Every <em>surface,</em><br>covered</h2>
+                    <p>Whether it&rsquo;s a single room skim or a full external render on a new build, we handle projects of all sizes with the same level of care. Residential and commercial.</p>
+                    <a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener" class="hero-cta">
+                        Request a Quote
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ========== GALLERY ========== -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="gallery-header sr">
+                <div>
+                    <span class="label">Our Work</span>
+                    <h2>Recent <em>projects</em></h2>
+                </div>
+            </div>
+            <div class="gallery-grid sr" style="transition-delay: 0.1s">
+                <div class="gallery-item">
+                    <img src="../assets/hero/20251216_141245.jpg" alt="Full view of rendered residential property with clean external finish, window detail, and climbing plants" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <span>Residential External Render</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../assets/hero/IMG_20240910_103949.jpg" alt="Side view of rendered building showing precision guttering alignment and smooth plaster finish" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <span>External Finish Detail</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="../assets/hero/20251216_140906.jpg" alt="Completed outbuilding featuring external render and dark panel cladding" loading="lazy">
+                    <div class="gallery-item-overlay">
+                        <span>Outbuilding Render</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ========== WHY CHOOSE US ========== -->
+    <section class="why" id="why">
+        <div class="container">
+            <div class="why-grid">
+                <div class="why-left sr">
+                    <span class="label">Why Choose Us</span>
+                    <h2>The <em>details</em><br>that matter</h2>
+                    <p>Quality plastering isn&rsquo;t just about the finish coat. It&rsquo;s about the work that goes on underneath &mdash; the preparation, the materials, the technique.</p>
+                </div>
+                <div class="why-features sr" style="transition-delay: 0.1s">
+                    <div class="why-feature">
+                        <svg class="why-feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+                        <h4>Adhesive Corner Beads</h4>
+                        <p>Fixed with drywall adhesive, not staples. Stronger bond, cleaner lines, no cracking over time.</p>
+                    </div>
+                    <div class="why-feature">
+                        <svg class="why-feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                        <h4>Two-Coat Finish</h4>
+                        <p>Two-coat application as standard on every skim. A smoother, more durable finish ready for decoration.</p>
+                    </div>
+                    <div class="why-feature">
+                        <svg class="why-feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+                        <h4>All Property Types</h4>
+                        <p>From single room re-skims to full new-build renders. Residential and commercial projects welcome.</p>
+                    </div>
+                    <div class="why-feature">
+                        <svg class="why-feature-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                        <h4>Surrey & South London</h4>
+                        <p>Covering the whole of Surrey and South London. Local knowledge, reliable service, no hidden travel charges.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div style="margin-bottom: clamp(2rem, 5vw, 3.5rem);" class="sr">
+                <span class="label">Get In Touch</span>
+                <h2 style="font-size: clamp(1.75rem, 4vw, 3.25rem); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1;">Ready to <em style="font-style: italic; color: var(--copper);">start?</em></h2>
+            </div>
+            <div class="contact-grid sr" style="transition-delay: 0.1s">
+                <div class="contact-card">
+                    <h3>Contact Details</h3>
+                    <div class="contact-info-row">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+                        <div class="info-content">
+                            <span class="info-label">Phone</span>
+                            <span class="info-value"><a href="tel:07830391647">07830 391 647</a></span>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+                        <div class="info-content">
+                            <span class="info-label">WhatsApp</span>
+                            <span class="info-value"><a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener">Message Us on WhatsApp</a></span>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                        <div class="info-content">
+                            <span class="info-label">Service Area</span>
+                            <span class="info-value">Surrey & South London</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <h3>Free Quotes</h3>
+                    <p style="font-size: 0.9375rem; font-weight: 300; color: var(--cream-dim); line-height: 1.8; margin-bottom: 1.5rem;">Get in touch for a no-obligation quote on your plastering project. We&rsquo;ll assess the job, talk you through the process, and give you an honest price.</p>
+                    <p style="font-size: 0.9375rem; font-weight: 300; color: var(--cream-dim); line-height: 1.8; margin-bottom: 2rem;">The quickest way to reach us is via WhatsApp or phone. Send us photos of the area and we can often give you a ballpark figure before we visit.</p>
+                    <a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener" class="hero-cta">
+                        WhatsApp Us Now
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FINAL CTA ========== -->
+    <section class="final-cta">
+        <div class="final-cta-glow"></div>
+        <div class="container final-cta-content sr">
+            <span class="label">Start Your Project</span>
+            <h2>Your walls deserve<br>an <em>elite</em> finish</h2>
+            <p>From the first assessment to the final coat, we bring precision and care to every job. Call us today or send a message on WhatsApp for a free, no-obligation quote.</p>
+            <a href="tel:07830391647" class="hero-cta">
+                Call 07830 391 647
+                <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">Elite Level <span>Plastering</span></span>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#gallery">Our Work</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <span class="footer-copy">&copy; 2026 Elite Level Plastering</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== FLOATING CTA ========== -->
+    <div class="floating-cta" id="floatingCta">
+        <a href="https://wa.me/447830391647?text=Hi%2C%20I%27d%20like%20a%20plastering%20quote%20please" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Get a Quote
+        </a>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ---- Nav Scroll Effect ----
+            const nav = document.getElementById('nav');
+            let lastScroll = 0;
+            function handleNavScroll() {
+                const scrollY = window.scrollY;
+                if (scrollY > 80) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+                lastScroll = scrollY;
+            }
+            window.addEventListener('scroll', handleNavScroll, { passive: true });
+
+            // ---- Floating CTA ----
+            const floatingCta = document.getElementById('floatingCta');
+            function handleFloatingCta() {
+                const threshold = window.innerHeight * 0.5;
+                if (window.scrollY > threshold) {
+                    floatingCta.classList.add('show');
+                } else {
+                    floatingCta.classList.remove('show');
+                }
+            }
+            window.addEventListener('scroll', handleFloatingCta, { passive: true });
+
+            // ---- Full-Screen Menu Toggle ----
+            const menuToggle = document.getElementById('menuToggle');
+            const menuOverlay = document.getElementById('menuOverlay');
+            let menuOpen = false;
+            menuToggle.addEventListener('click', function() {
+                menuOpen = !menuOpen;
+                menuToggle.classList.toggle('active', menuOpen);
+                menuOverlay.classList.toggle('open', menuOpen);
+                document.body.style.overflow = menuOpen ? 'hidden' : '';
+            });
+            // Close menu when clicking a link
+            menuOverlay.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    menuOpen = false;
+                    menuToggle.classList.remove('active');
+                    menuOverlay.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // ---- Scroll Reveal (IntersectionObserver) ----
+            const srElements = document.querySelectorAll('.sr');
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('vis');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+            srElements.forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>
