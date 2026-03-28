@@ -1628,10 +1628,10 @@
             var loaderBar = document.getElementById('loaderBar');
             var progress = 0;
             var loadInterval = setInterval(function() {
-                progress += Math.random() * 15 + 5;
+                progress += Math.random() * 8 + 3;
                 if (progress > 90) progress = 90;
                 loaderBar.style.width = progress + '%';
-            }, 200);
+            }, 350);
 
             function dismissLoader() {
                 clearInterval(loadInterval);
@@ -1639,19 +1639,19 @@
                 setTimeout(function() {
                     loader.classList.add('done');
                     document.body.style.overflow = '';
-                }, 400);
+                }, 500);
             }
 
             window.addEventListener('load', function() {
-                setTimeout(dismissLoader, 800);
+                setTimeout(dismissLoader, 1800);
             });
 
-            // Safety timeout — dismiss after 4s no matter what
+            // Safety timeout — dismiss after 6s no matter what
             setTimeout(function() {
                 if (!loader.classList.contains('done')) {
                     dismissLoader();
                 }
-            }, 4000);
+            }, 6000);
 
             document.body.style.overflow = 'hidden';
 
