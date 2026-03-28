@@ -1152,9 +1152,76 @@
                 gap: 1rem;
             }
         }
+        /* ============================================
+           LOADING SCREEN
+           ============================================ */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0a0a09;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+        }
+        .loader.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .loader-logo {
+            width: clamp(180px, 30vw, 280px);
+            opacity: 0;
+            transform: scale(0.92);
+            animation: loaderFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+        @keyframes loaderFadeIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+        .loader-bar-track {
+            width: clamp(120px, 20vw, 200px);
+            height: 1px;
+            background: rgba(196, 125, 59, 0.15);
+            margin-top: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: loaderFadeIn 0.6s ease 0.6s forwards;
+        }
+        .loader-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--copper);
+            transition: width 0.3s ease-out;
+        }
+        .loader-text {
+            margin-top: 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.5625rem;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(196, 125, 59, 0.5);
+            opacity: 0;
+            animation: loaderFadeIn 0.6s ease 0.8s forwards;
+        }
     </style>
 </head>
 <body>
+
+    <!-- ========== LOADING SCREEN ========== -->
+    <div class="loader" id="loader">
+        <img src="logo.jpeg" alt="Elite Level Plastering" class="loader-logo">
+        <div class="loader-bar-track">
+            <div class="loader-bar" id="loaderBar"></div>
+        </div>
+        <span class="loader-text">Loading</span>
+    </div>
 
     <!-- ========== NAVIGATION ========== -->
     <nav class="nav" id="nav">
@@ -1555,6 +1622,38 @@
     <script>
         (function() {
             'use strict';
+
+            // ---- Loading Screen ----
+            var loader = document.getElementById('loader');
+            var loaderBar = document.getElementById('loaderBar');
+            var progress = 0;
+            var loadInterval = setInterval(function() {
+                progress += Math.random() * 15 + 5;
+                if (progress > 90) progress = 90;
+                loaderBar.style.width = progress + '%';
+            }, 200);
+
+            function dismissLoader() {
+                clearInterval(loadInterval);
+                loaderBar.style.width = '100%';
+                setTimeout(function() {
+                    loader.classList.add('done');
+                    document.body.style.overflow = '';
+                }, 400);
+            }
+
+            window.addEventListener('load', function() {
+                setTimeout(dismissLoader, 800);
+            });
+
+            // Safety timeout — dismiss after 4s no matter what
+            setTimeout(function() {
+                if (!loader.classList.contains('done')) {
+                    dismissLoader();
+                }
+            }, 4000);
+
+            document.body.style.overflow = 'hidden';
 
             // ---- Nav Scroll Effect ----
             const nav = document.getElementById('nav');
