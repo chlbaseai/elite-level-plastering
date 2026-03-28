@@ -277,11 +277,16 @@
         /* ============================================
            HERO
            ============================================ */
+        .hero-wrapper {
+            height: 300dvh;
+            position: relative;
+        }
         .hero {
-            min-height: 100dvh;
+            height: 100dvh;
+            position: sticky;
+            top: 0;
             display: flex;
             align-items: flex-end;
-            position: relative;
             overflow: hidden;
             padding-bottom: clamp(3rem, 8vw, 6rem);
         }
@@ -290,15 +295,10 @@
             inset: 0;
             z-index: 0;
         }
-        .hero-bg img {
+        .hero-bg video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            animation: heroZoom 14s ease-out forwards;
-        }
-        @keyframes heroZoom {
-            from { transform: scale(1.08); }
-            to { transform: scale(1); }
         }
         .hero-overlay {
             position: absolute;
@@ -306,9 +306,9 @@
             background: linear-gradient(
                 to top,
                 var(--black) 0%,
-                rgba(20, 20, 19, 0.85) 30%,
-                rgba(20, 20, 19, 0.5) 60%,
-                rgba(20, 20, 19, 0.3) 100%
+                rgba(20, 20, 19, 0.7) 25%,
+                rgba(20, 20, 19, 0.35) 55%,
+                rgba(20, 20, 19, 0.2) 100%
             );
             z-index: 1;
         }
@@ -1055,6 +1055,9 @@
            MOBILE RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
+            .hero-wrapper {
+                height: 250dvh;
+            }
             .hero-grid {
                 grid-template-columns: 1fr;
             }
@@ -1266,9 +1269,12 @@
     </div>
 
     <!-- ========== HERO ========== -->
+    <div class="hero-wrapper" id="heroWrapper">
     <section class="hero" id="hero">
         <div class="hero-bg">
-            <img src="assets-hero/20251216_141245.jpg" alt="Beautifully rendered residential property with clean finish, completed by Elite Level Plastering in Surrey">
+            <video id="heroVideo" muted playsinline preload="auto" poster="assets-hero/20251216_141245.jpg">
+                <source src="sc-animation-1.mp4" type="video/mp4">
+            </video>
             <div class="hero-overlay"></div>
         </div>
         <div class="container hero-content">
@@ -1303,6 +1309,7 @@
             <span class="hero-scroll-text">Scroll</span>
         </div>
     </section>
+    </div>
 
     <!-- ========== MARQUEE ========== -->
     <div class="marquee-section" aria-hidden="true">
@@ -1654,6 +1661,46 @@
             }, 6000);
 
             document.body.style.overflow = 'hidden';
+
+            // ---- Hero Video Scroll Scrub ----
+            var heroVideo = document.getElementById('heroVideo');
+            var heroWrapper = document.getElementById('heroWrapper');
+            var videoDuration = 4.04;
+            var lastScrubTime = 0;
+            var targetTime = 0;
+            var currentTime = 0;
+            var scrubRAF = null;
+
+            heroVideo.addEventListener('loadedmetadata', function() {
+                videoDuration = heroVideo.duration;
+                heroVideo.currentTime = 0;
+            });
+
+            function smoothScrub() {
+                currentTime += (targetTime - currentTime) * 0.12;
+                if (Math.abs(currentTime - targetTime) > 0.01) {
+                    heroVideo.currentTime = Math.max(0, Math.min(currentTime, videoDuration));
+                    scrubRAF = requestAnimationFrame(smoothScrub);
+                } else {
+                    heroVideo.currentTime = targetTime;
+                    scrubRAF = null;
+                }
+            }
+
+            function handleVideoScrub() {
+                var rect = heroWrapper.getBoundingClientRect();
+                var wrapperH = heroWrapper.offsetHeight;
+                var viewH = window.innerHeight;
+                var scrolled = -rect.top;
+                var scrollRange = wrapperH - viewH;
+                var progress = Math.max(0, Math.min(scrolled / scrollRange, 1));
+                targetTime = progress * videoDuration;
+                if (!scrubRAF) {
+                    scrubRAF = requestAnimationFrame(smoothScrub);
+                }
+            }
+
+            window.addEventListener('scroll', handleVideoScrub, { passive: true });
 
             // ---- Nav Scroll Effect ----
             const nav = document.getElementById('nav');
