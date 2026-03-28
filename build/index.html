@@ -277,16 +277,11 @@
         /* ============================================
            HERO
            ============================================ */
-        .hero-wrapper {
-            height: 300dvh;
-            position: relative;
-        }
         .hero {
-            height: 100dvh;
-            position: sticky;
-            top: 0;
+            min-height: 100dvh;
             display: flex;
             align-items: flex-end;
+            position: relative;
             overflow: hidden;
             padding-bottom: clamp(3rem, 8vw, 6rem);
         }
@@ -295,10 +290,15 @@
             inset: 0;
             z-index: 0;
         }
-        .hero-bg canvas {
+        .hero-bg img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            animation: heroZoom 14s ease-out forwards;
+        }
+        @keyframes heroZoom {
+            from { transform: scale(1.08); }
+            to { transform: scale(1); }
         }
         .hero-overlay {
             position: absolute;
@@ -306,10 +306,9 @@
             background: linear-gradient(
                 to top,
                 var(--black) 0%,
-                rgba(20, 20, 19, 0.75) 20%,
-                rgba(20, 20, 19, 0.4) 50%,
-                rgba(20, 20, 19, 0.25) 75%,
-                rgba(20, 20, 19, 0.35) 100%
+                rgba(20, 20, 19, 0.85) 30%,
+                rgba(20, 20, 19, 0.5) 60%,
+                rgba(20, 20, 19, 0.3) 100%
             );
             z-index: 1;
         }
@@ -1056,9 +1055,6 @@
            MOBILE RESPONSIVE
            ============================================ */
         @media (max-width: 768px) {
-            .hero-wrapper {
-                height: 250dvh;
-            }
             .hero-grid {
                 grid-template-columns: 1fr;
             }
@@ -1270,10 +1266,9 @@
     </div>
 
     <!-- ========== HERO ========== -->
-    <div class="hero-wrapper" id="heroWrapper">
     <section class="hero" id="hero">
         <div class="hero-bg">
-            <canvas id="heroCanvas" width="1280" height="716"></canvas>
+            <img src="assets-hero/hero-main.jpeg" alt="Modern rendered residential property with clean external finish by Elite Level Plastering, Surrey">
             <div class="hero-overlay"></div>
         </div>
         <div class="container hero-content">
@@ -1308,7 +1303,6 @@
             <span class="hero-scroll-text">Scroll</span>
         </div>
     </section>
-    </div>
 
     <!-- ========== MARQUEE ========== -->
     <div class="marquee-section" aria-hidden="true">
@@ -1660,84 +1654,6 @@
             }, 6000);
 
             document.body.style.overflow = 'hidden';
-
-            // ---- Hero Canvas Frame Sequence ----
-            var canvas = document.getElementById('heroCanvas');
-            var ctx = canvas.getContext('2d');
-            var heroWrapper = document.getElementById('heroWrapper');
-            var TOTAL_FRAMES = 97;
-            var frames = [];
-            var framesLoaded = 0;
-            var currentFrame = 0;
-            var targetFrame = 0;
-            var animating = false;
-
-            // Preload all frames
-            for (var i = 1; i <= TOTAL_FRAMES; i++) {
-                var img = new Image();
-                img.src = 'frames/f' + String(i).padStart(3, '0') + '.jpg';
-                img.onload = function() {
-                    framesLoaded++;
-                    if (framesLoaded === 1) drawFrame(0);
-                };
-                frames.push(img);
-            }
-
-            function drawFrame(index) {
-                var img = frames[index];
-                if (!img || !img.complete) return;
-                var cw = canvas.width;
-                var ch = canvas.height;
-                var iw = img.naturalWidth;
-                var ih = img.naturalHeight;
-                var scale = Math.max(cw / iw, ch / ih);
-                var sw = iw * scale;
-                var sh = ih * scale;
-                ctx.drawImage(img, (cw - sw) / 2, (ch - sh) / 2, sw, sh);
-            }
-
-            function animateFrame() {
-                var diff = targetFrame - currentFrame;
-                if (Math.abs(diff) > 0.4) {
-                    currentFrame += diff * 0.15;
-                    var idx = Math.round(currentFrame);
-                    idx = Math.max(0, Math.min(idx, TOTAL_FRAMES - 1));
-                    drawFrame(idx);
-                    requestAnimationFrame(animateFrame);
-                } else {
-                    currentFrame = targetFrame;
-                    drawFrame(Math.round(currentFrame));
-                    animating = false;
-                }
-            }
-
-            function handleFrameScrub() {
-                var rect = heroWrapper.getBoundingClientRect();
-                var scrollRange = heroWrapper.offsetHeight - window.innerHeight;
-                var progress = Math.max(0, Math.min(-rect.top / scrollRange, 1));
-                targetFrame = progress * (TOTAL_FRAMES - 1);
-                if (!animating) {
-                    animating = true;
-                    requestAnimationFrame(animateFrame);
-                }
-            }
-
-            window.addEventListener('scroll', handleFrameScrub, { passive: true });
-
-            // Handle canvas resize
-            function resizeCanvas() {
-                var dpr = window.devicePixelRatio || 1;
-                var w = canvas.parentElement.offsetWidth;
-                var h = canvas.parentElement.offsetHeight;
-                canvas.width = w * dpr;
-                canvas.height = h * dpr;
-                ctx.scale(dpr, dpr);
-                canvas.style.width = w + 'px';
-                canvas.style.height = h + 'px';
-                drawFrame(Math.round(currentFrame));
-            }
-            window.addEventListener('resize', resizeCanvas);
-            setTimeout(resizeCanvas, 100);
 
             // ---- Nav Scroll Effect ----
             const nav = document.getElementById('nav');
