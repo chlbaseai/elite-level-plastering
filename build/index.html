@@ -1666,37 +1666,36 @@
             var heroVideo = document.getElementById('heroVideo');
             var heroWrapper = document.getElementById('heroWrapper');
             var videoDuration = 4.04;
-            var lastScrubTime = 0;
             var targetTime = 0;
             var currentTime = 0;
-            var scrubRAF = null;
+            var isScrubbing = false;
 
             heroVideo.addEventListener('loadedmetadata', function() {
                 videoDuration = heroVideo.duration;
                 heroVideo.currentTime = 0;
             });
 
-            function smoothScrub() {
-                currentTime += (targetTime - currentTime) * 0.12;
-                if (Math.abs(currentTime - targetTime) > 0.01) {
-                    heroVideo.currentTime = Math.max(0, Math.min(currentTime, videoDuration));
-                    scrubRAF = requestAnimationFrame(smoothScrub);
+            function scrubLoop() {
+                var diff = targetTime - currentTime;
+                if (Math.abs(diff) > 0.005) {
+                    currentTime += diff * 0.08;
+                    heroVideo.currentTime = Math.max(0, Math.min(currentTime, videoDuration - 0.01));
+                    requestAnimationFrame(scrubLoop);
                 } else {
-                    heroVideo.currentTime = targetTime;
-                    scrubRAF = null;
+                    currentTime = targetTime;
+                    heroVideo.currentTime = currentTime;
+                    isScrubbing = false;
                 }
             }
 
             function handleVideoScrub() {
                 var rect = heroWrapper.getBoundingClientRect();
-                var wrapperH = heroWrapper.offsetHeight;
-                var viewH = window.innerHeight;
-                var scrolled = -rect.top;
-                var scrollRange = wrapperH - viewH;
-                var progress = Math.max(0, Math.min(scrolled / scrollRange, 1));
+                var scrollRange = heroWrapper.offsetHeight - window.innerHeight;
+                var progress = Math.max(0, Math.min(-rect.top / scrollRange, 1));
                 targetTime = progress * videoDuration;
-                if (!scrubRAF) {
-                    scrubRAF = requestAnimationFrame(smoothScrub);
+                if (!isScrubbing) {
+                    isScrubbing = true;
+                    requestAnimationFrame(scrubLoop);
                 }
             }
 
